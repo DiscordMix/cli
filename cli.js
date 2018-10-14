@@ -85,10 +85,9 @@ function updateRepo() {
     clone(remoteRepoPath, repoPath, {
         checkout: process.env.REPO_BRANCH || "master"
     }, () => {
+        fs.writeFileSync(sentryPath, "");
         console.log("Repo updated");
     });
-
-    fs.writeFileSync(sentryPath, "");
 }
 
 if (!fs.existsSync(getLocalPath("package.json")) && !(cli.flags.force || cli.flags.f)) {
