@@ -49,10 +49,10 @@ function getLocalPath(p) {
 const remoteRepoPath = cli.flags.r || cli.flags.remote || "https://github.com/cloudrex/forge-commands.git";
 const repoPath = getLocalPath(cli.flags.l || cli.flags.local || ".forge-repo");
 const repoSentry = cli.flags.s || cli.flags.sentry || ".cmd-repo";
-const sentryPath = `${repoPath}/${repoSentry}`;
+const sentryPath = path.resolve(`${repoPath}/${repoSentry}`);
 
 function getCommandPath(command) {
-    return `${repoPath}/${command}`;
+    return path.resolve(`${repoPath}/${command}`);
 }
 
 function commandExists(command) {
@@ -116,7 +116,7 @@ switch (cli.input[0]) {
                 if (fs.existsSync(repoPath)) {
                     if (commandExists(cli.input[1])) {
                         const outPath = getOutPath();
-                        const finalOutPath = `${outPath}/${cli.input[1]}`;
+                        const finalOutPath = path.resolve(`${outPath}/${cli.input[1]}`);
 
                         if (!fs.existsSync(outPath)) {
                             fs.mkdirSync(outPath);
