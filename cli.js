@@ -78,6 +78,9 @@ function updateRepo() {
 
         rimraf.sync(repoPath);
     }
+    else {
+        fs.mkdirSync(repoPath);
+    }
 
     clone(remoteRepoPath, repoPath, {
         checkout: process.env.REPO_BRANCH || "master"
