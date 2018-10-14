@@ -43,7 +43,7 @@ const cli = meow("Usage: forge add|remove <package name> OR forge update|list SW
 });
 
 function getLocalPath(p) {
-    return path.join(process.cwd(), p);
+    return path.resolve(path.join(process.cwd(), p));
 }
 
 const remoteRepoPath = cli.flags.r || cli.flags.remote || "https://github.com/cloudrex/forge-commands.git";
