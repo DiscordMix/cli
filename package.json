@@ -1,7 +1,7 @@
 {
     "name": "@cloudrex/forge-cli",
     "version": "1.0.1",
-    "description": "",
+    "description": "Command line interface for the Forge bot framework",
     "main": "cli.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
