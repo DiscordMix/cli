@@ -7,6 +7,7 @@ const urlExists = require("url-exists");
 const rimraf = require("rimraf");
 const path = require("path");
 const ncp = require("ncp").ncp;
+const chalk = require("chalk");
 
 ncp.limit = 16;
 
@@ -51,14 +52,24 @@ const exampleBotRepoPath = "https://github.com/cloudrex/example-forge-bot.git";
 const repoPath = getLocalPath(cli.flags.l || cli.flags.local || ".forge-repo");
 const repoSentry = cli.flags.s || cli.flags.sentry || ".cmd-repo";
 const sentryPath = path.resolve(`${repoPath}/${repoSentry}`);
+const manifestFile = "cmd.json";
+const originalAuthor = "CloudRex <cloudrex@outlook.com>";
 
 function getCommandPath(command) {
-    return path.resolve(`${repoPath}/${command}`);
+    return path.resolve(path.join(repoPath, command));
 }
 
 function commandExists(command) {
     // TODO: Make sure directory isn't empty
     return fs.existsSync(getCommandPath(command)) && fs.lstatSync(getCommandPath(command)).isDirectory();
+}
+
+function getCommandManifestPath(command) {
+    return path.resolve(path.join(getCommandPath(command), manifestFile));
+}
+
+function getCommandManifest(command) {
+    return JSON.parse(fs.readFileSync(getCommandManifestPath(command).toString()));
 }
 
 function getOutPath() {
@@ -169,14 +180,25 @@ switch (cli.input[0]) {
 
         let counter = 0;
 
+        console.log("");
+
         // TODO: Make sure command is a directory and it isn't empty
         for (let i = 0; i < commands.length; i++) {
             if (commands[i].startsWith(".")) {
                 continue;
             }
 
+            const manifest = getCommandManifest(commands[i]);
+
             counter++;
-            console.log(commands[i]);
+
+            let message = chalk.greenBright.bold(commands[i]) + " " + chalk.bgWhite.black("v" + (manifest.version || "?")) + chalk.gray(" => ") + manifest.description;
+
+            if (manifest.author !== originalAuthor) {
+                message += chalk.gray(` by ${manifest.author}`);
+            }
+
+            console.log(message);
         }
 
         console.log(`\n${counter} Command(s)`);
