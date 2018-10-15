@@ -91,7 +91,7 @@ function updateRepo() {
     });
 }
 
-if (!fs.existsSync(getLocalPath("package.json")) && !(cli.flags.force || cli.flags.f)) {
+if (!fs.existsSync(getLocalPath("package.json")) && !(cli.flags.force || cli.flags.f) && cli.input[0] !== "new") {
     console.log("You must be in the root folder of a node.js project. Use the -f or --force flag to omit this warning.");
 
     process.exit(0);
