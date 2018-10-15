@@ -47,6 +47,7 @@ function getLocalPath(p) {
 }
 
 const remoteRepoPath = cli.flags.r || cli.flags.remote || "https://github.com/cloudrex/forge-commands.git";
+const exampleBotRepoPath = "https://github.com/cloudrex/example-forge-bot.git";
 const repoPath = getLocalPath(cli.flags.l || cli.flags.local || ".forge-repo");
 const repoSentry = cli.flags.s || cli.flags.sentry || ".cmd-repo";
 const sentryPath = path.resolve(`${repoPath}/${repoSentry}`);
@@ -179,6 +180,43 @@ switch (cli.input[0]) {
         }
 
         console.log(`\n${counter} Command(s)`);
+
+        break;
+    }
+
+    case "new": {
+        if (cli.input[1] === undefined) {
+            console.log("Expecting directory name");
+
+            process.exit(0);
+        }
+
+        if (fs.existsSync(getLocalPath(cli.input[1]))) {
+            console.log("Directory already exists");
+
+            process.exit(0);
+        }
+
+        urlExists(remoteRepoPath, (error, exists) => {
+            if (error) {
+                throw error;
+            }
+
+            if (exists) {
+                const localPath = cli.input[1];
+
+                console.log("Cloning template bot ...");
+
+                clone(exampleBotRepoPath, localPath, {
+                    checkout: process.env.NEW_REPO_BRANCH || "master"
+                }, () => {
+                    console.log(`Created template bot @ ${localPath}`);
+                });
+            }
+            else {
+                console.log("Example bot repo does not exist");
+            }
+        });
 
         break;
     }
