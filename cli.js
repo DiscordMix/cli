@@ -14,7 +14,7 @@ ncp.limit = 16;
 // Grab provided args.
 const [,, ...args] = process.argv;
 
-const cli = meow("Usage: forge add|remove <package name> OR forge update|list SWITCHES: -l|--local <relative path> (The local path to save the repo), -r|--remote <url> (The url to pull commands from, must be git url), -f|--force (Override accidental directory erasure protection)", {
+const cli = meow("Usage: forge add|remove <package name> OR forge update|list SWITCHES: -l|--local <relative path> (The local path to save the repo), -r|--remote <url> (The url to pull commands from, must be git url), -f|--force (Override accidental directory erasure protection), -v|--versions (Show versions when listing commands)", {
     flags: {
         force: {
             type: "boolean",
@@ -39,6 +39,11 @@ const cli = meow("Usage: forge add|remove <package name> OR forge update|list SW
         sentry: {
             type: "string",
             alias: "s"
+        },
+
+        versions: {
+            type: "boolean",
+            alias: "v"
         }
     }
 });
@@ -47,8 +52,8 @@ function getLocalPath(p) {
     return path.resolve(path.join(process.cwd(), p));
 }
 
-const remoteRepoPath = cli.flags.r || cli.flags.remote || "https://github.com/cloudrex/forge-commands.git";
-const exampleBotRepoPath = "https://github.com/cloudrex/example-forge-bot.git";
+const remoteRepoPath = cli.flags.r || cli.flags.remote || "https://github.com/discord-forge/forge-commands.git";
+const exampleBotRepoPath = "https://github.com/discord-forge/example-forge-bot.git";
 const repoPath = getLocalPath(cli.flags.l || cli.flags.local || ".forge-repo");
 const repoSentry = cli.flags.s || cli.flags.sentry || ".cmd-repo";
 const sentryPath = path.resolve(`${repoPath}/${repoSentry}`);
@@ -192,7 +197,9 @@ switch (cli.input[0]) {
 
             counter++;
 
-            let message = chalk.greenBright.bold(commands[i]) + " " + chalk.bgWhite.black("v" + (manifest.version || "?")) + chalk.gray(" => ") + manifest.description;
+            const version = chalk.bgWhite.black("v" + (manifest.version || "?"));
+
+            let message = chalk.greenBright.bold(commands[i]) + " " + ((cli.flags.v || cli.flags.versions) ? version : "") + chalk.gray(" => ") + manifest.description;
 
             if (manifest.author !== originalAuthor) {
                 message += chalk.gray(` by ${manifest.author}`);
