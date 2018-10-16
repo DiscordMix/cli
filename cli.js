@@ -199,7 +199,7 @@ switch (cli.input[0]) {
 
             const version = chalk.bgWhite.black("v" + (manifest.version || "?"));
 
-            let message = chalk.greenBright.bold(commands[i]) + " " + ((cli.flags.v || cli.flags.versions) ? version : "") + chalk.gray(" => ") + manifest.description;
+            let message = chalk.greenBright.bold(commands[i]) + ((cli.flags.v || cli.flags.versions) ? " " + version : "") + chalk.gray(" => ") + manifest.description;
 
             if (manifest.author !== originalAuthor) {
                 message += chalk.gray(` by ${manifest.author}`);
