@@ -1,6 +1,6 @@
 {
     "name": "@cloudrex/forge-cli",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Command line interface for the Forge bot framework",
     "main": "cli.js",
     "scripts": {
