@@ -1,10 +1,10 @@
 {
     "name": "@cloudrex/forge-cli",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Command line interface for the Forge bot framework",
     "main": "cli.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "build": "tsc"
     },
     "keywords": [
         "discord",
@@ -15,7 +15,7 @@
     "author": "CloudRex <cloudrex@outlook.com>",
     "license": "MIT",
     "bin": {
-        "forge": "./cli.js"
+        "forge": "./dist/entry.js"
     },
     "dependencies": {
         "chalk": "^2.4.1",
@@ -24,5 +24,10 @@
         "ncp": "^2.0.0",
         "rimraf": "^2.6.2",
         "url-exists": "^1.0.3"
+    },
+    "devDependencies": {
+        "@types/meow": "^5.0.0",
+        "@types/ncp": "^2.0.1",
+        "@types/rimraf": "^2.0.2"
     }
 }
