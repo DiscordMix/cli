@@ -18,6 +18,7 @@
         "forge": "./dist/entry.js"
     },
     "dependencies": {
+        "@atlas/automata": "^1.0.0-alpha.1",
         "chalk": "^2.4.1",
         "git-clone": "^0.1.0",
         "meow": "^5.0.0",
