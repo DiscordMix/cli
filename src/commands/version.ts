@@ -5,6 +5,7 @@ export default class VersionCmd implements ICommand {
     readonly description: string = "display the version";
 
     public run(): void {
-        console.log(`Version ${process.env.npm_package_version}`);
+        // TODO
+        console.log(`Version x.x.x`);
     }
 }

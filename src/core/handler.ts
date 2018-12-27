@@ -30,11 +30,16 @@ export default class Handler {
     }
 
     public handle(): this {
-        if (process.argv.length === 0) {
+        const args :string[] = process.argv.slice(2);
+
+        if (args.length === 0) {
             this.help();
         }
-        else if (this.commands.has(process.argv[0])) {
-            (this.commands.get(process.argv[0]) as ICommand).run(process.argv.slice(1, process.argv.length));
+        else if (this.commands.has(args[0])) {
+            (this.commands.get(args[0]) as ICommand).run(args.slice(1));
+        }
+        else {
+            console.log("Command not recognized; Use \"forge help\" to view commands");
         }
 
         return this;
