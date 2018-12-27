@@ -32,7 +32,7 @@ export default class Handler {
     public handle(): this {
         const args :string[] = process.argv.slice(2);
 
-        if (args.length === 0) {
+        if (args.length === 0 || args[0] === "help") {
             this.help();
         }
         else if (this.commands.has(args[0])) {
