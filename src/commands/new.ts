@@ -29,7 +29,6 @@ export default class NewCmd implements ICommand {
             .then(() => console.log("--> Installing NPM modules"), true)
             .then(() => FileSystemOperations.workingDir(dir))
             .then(ScriptOperations.npmInstall)
-            .then(TestOperations.testFalseSync)
 
             .fallback(() => {
                 coordinator
