@@ -26,8 +26,14 @@ export default class NewCmd implements ICommand {
                 return GitOperations.clone(cloneUrl, dir);
             })
 
-            .then(() => console.log("--> Installing NPM modules"), true)
             .then(() => FileSystemOperations.workingDir(dir))
+
+            .then(() => {
+                console.log("--> Removing git directory");
+                FileSystemOperations.forceRemove(".git")
+            })
+
+            .then(() => console.log("--> Installing NPM modules"), true)
             .then(ScriptOperations.npmInstall)
 
             .fallback(() => {
