@@ -1,6 +1,6 @@
 {
     "name": "@d.mix/cli",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Command line interface for the Mix bot framework",
     "main": "cli.js",
     "scripts": {
