@@ -5,8 +5,8 @@ import VersionCmd from "./commands/version";
 import NewCmd from "./commands/new";
 import RemoteCmd from "./commands/remote";
 
-export const cloneUrl: string = "https://github.com/discord-forge/example-forge-bot.git";
-export const cloneName: string = "forge-bot";
+export const cloneUrl: string = "https://github.com/discord-mix/example-bot.git";
+export const cloneName: string = "mix-bot";
 
 const handler: Handler = new Handler();
 
