@@ -1,7 +1,7 @@
 {
-    "name": "@cloudrex/forge-cli",
+    "name": "mix.cli",
     "version": "1.0.3",
-    "description": "Command line interface for the Forge bot framework",
+    "description": "Command line interface for the Mix bot framework",
     "main": "cli.js",
     "scripts": {
         "build": "tsc",
@@ -16,7 +16,7 @@
     "author": "CloudRex <cloudrex@outlook.com>",
     "license": "MIT",
     "bin": {
-        "forge": "./dist/entry.js"
+        "mix": "./dist/entry.js"
     },
     "dependencies": {
         "@atlas/automata": "^1.0.0-alpha.2",
