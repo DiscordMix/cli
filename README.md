@@ -1,6 +1,6 @@
-## Forge CLI
+## Mix CLI
 
-Command line interface for installing stand-alone Forge commands.
+Command line interface for installing stand-alone Mix commands.
 
 To install, simply run:
 
