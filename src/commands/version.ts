@@ -1,6 +1,6 @@
 import ICommand from "../core/command";
 
-export default class VersionCmd implements ICommand {
+export default class $Version implements ICommand {
     readonly name: string = "version";
     readonly description: string = "display the version";
 
