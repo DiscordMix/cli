@@ -1,10 +1,10 @@
-import ICommand from "../core/command";
+import Command from "../core/command";
 import fs from "fs";
 import {Coordinator, GitOperations, FileSystemOperations, ScriptOperations, ICoordinatorRunResult, CoordinatorState} from "@atlas/automata";
 import {cloneUrl, cloneName} from "../entry";
 import colors from "colors";
 
-export default class $New implements ICommand {
+export default class $New extends Command {
     readonly name: string = "new";
     readonly description: string = "create a new project";
 

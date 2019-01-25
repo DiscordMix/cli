@@ -1,26 +1,28 @@
-import ICommand from "../core/command";
 import fs from "fs";
 import Package from "../core/package";
+import Command from "../core/command";
 
-/**
- * Arguments
- * 
- * 1. relativePath: The location of the module to export.
- */
+interface IArgs {
+    readonly path: string;
+}
 
-export default class $Export implements ICommand {
-    readonly name: string = "export";
-    readonly description: string = "package and export modules";
+export default class $Export extends Command {
+    public readonly name: string = "export";
+    public readonly description: string = "package and export modules";
 
-    public run(args: string[]): void {
+    public run($: IArgs): void {
         Package.ensure();
 
-        const modPath: string = `${args[0]}.js`;
+        const modPath: string = `${$.path}.js`;
 
         if (!fs.existsSync(modPath)) {
             console.log(`Module path '${modPath}' does not exist.`);
 
             return;
         }
+    }
+
+    public setup(): void {
+        //
     }
 }

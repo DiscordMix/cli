@@ -1,0 +1,7 @@
+{
+    "name": "mix-package",
+    "description": "No description provided.",
+    "version": "1.0.0",
+    "author": "anonymous",
+    "export": "./dist/test-exports"
+}

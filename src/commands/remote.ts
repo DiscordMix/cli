@@ -1,10 +1,10 @@
-import ICommand from "../core/command";
+import Command from "../core/command";
 
-export default class $Remote implements ICommand {
-    readonly name: string = "remote";
-    readonly description: string = "manage remote clone url";
+export default class $Remote extends Command {
+    public readonly name: string = "remote";
+    public readonly description: string = "manage remote clone url";
 
     public run(): void {
-        console.log("Not yet implemented");
+        console.log("Not yet implemented.");
     }
 }

@@ -1,4 +1,6 @@
 import ICommand from "./command";
+import yargs from "yargs";
+import Package from "./package";
 
 export default class Handler {
     protected commands: Map<string, ICommand>;
@@ -30,17 +32,23 @@ export default class Handler {
     }
 
     public handle(): this {
-        const args :string[] = process.argv.slice(2);
+        // Setup usage
+        yargs.usage("$0 <cmd> [args]");
 
-        if (args.length === 0 || args[0] === "help") {
-            this.help();
+        for (const command of this.commands.values()) {
+            yargs.command(command.name, command.description, command.setup as any, (args: any): Promise<void> | void => {
+                if (command.dependOnManifest && !Package.exists) {
+                    console.log("No package manifest found. Use 'mix init' to initialize a new manifest.");
+
+                    return;
+                }
+
+                return command.run(args);
+            });
         }
-        else if (this.commands.has(args[0])) {
-            (this.commands.get(args[0]) as ICommand).run(args.slice(1));
-        }
-        else {
-            console.log("Command not recognized; Use \"forge help\" to view commands");
-        }
+
+        // Finish setup
+        yargs.help().argv;
 
         return this;
     }
