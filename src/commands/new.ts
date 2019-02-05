@@ -30,11 +30,15 @@ export default class $New extends Command {
 
             .then(() => {
                 console.log("--> Removing git directory");
-                FileSystemOperations.forceRemove(".git")
+
+                return FileSystemOperations.forceRemove(".git");
             })
 
-            .then(() => console.log("--> Installing NPM modules"), true)
-            .then(ScriptOperations.npmInstall)
+            .then(() => {
+                console.log("--> Installing NPM modules");
+
+                return ScriptOperations.npmInstall();
+            })
 
             .fallback(() => {
                 coordinator
